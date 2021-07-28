@@ -20,7 +20,7 @@ public class MonkeyWindows {
     private JButton btnAdd;
     private JTable contentTable;
     private JPanel jContent;
-    private JButton button1;
+    private JButton btnClean;
 
     public MonkeyWindows(Project project, ToolWindow toolWindow) {
         printerService = PrinterServiceFactory.getPrinterService();
@@ -58,7 +58,7 @@ public class MonkeyWindows {
                 TABLE_MODEL.addRow(COLUMN_NAME);
             });
         });
-        button1.addActionListener(e -> {
+        btnClean.addActionListener(e -> {
             NOTE_LIST.clear();
             TABLE_MODEL.setNumRows(0);
         });

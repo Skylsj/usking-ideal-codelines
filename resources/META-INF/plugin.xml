@@ -1,19 +1,15 @@
 <idea-plugin>
-  <id>com.your.company.unique.plugin.id</id>
-  <name>Plugin display name here</name>
+  <!-- 插件唯一id，不能和其他插件项目重复，所以推荐使用com.xxx.xxx的格式
+       插件不同版本之间不能更改，若没有指定，则与插件名称相同 -->
+  <id>top.usking.plugin.smart.monkey</id>
+  <!-- 插件名称，别人在官方插件库搜索你的插件时使用的名称 -->
+  <name>Code Lines</name>
   <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <vendor email="yd_liushijin@163.com" url="">Sky.liu</vendor>
 
-  <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
-    ]]></description>
+  <description>Code statistics for ideal plugins.Include java xml and properties.</description>
 
-  <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
-    ]]>
-  </change-notes>
+  <change-notes></change-notes>
 
   <!-- please see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html for description -->
   <idea-version since-build="173.0"/>

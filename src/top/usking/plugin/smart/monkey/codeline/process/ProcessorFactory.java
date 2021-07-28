@@ -1,13 +1,12 @@
 package top.usking.plugin.smart.monkey.codeline.process;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class ProcessorFactory {
 
-    private final List<Processor> processors;
+    private final Processor[] processors;
 
-    public ProcessorFactory(List<Processor> processors){
+    public ProcessorFactory(Processor... processors){
         this.processors = processors;
     }
 

@@ -26,9 +26,10 @@
             <children>
               <component id="a45a9" class="javax.swing.JButton" binding="btnAdd">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <enabled value="true"/>
                   <text value="刷新"/>
                 </properties>
               </component>
@@ -37,12 +38,12 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
-              <component id="c759b" class="javax.swing.JButton" binding="button1" default-binding="true">
+              <component id="c759b" class="javax.swing.JButton" binding="btnClean">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Button"/>
+                  <text value="清空"/>
                 </properties>
               </component>
             </children>

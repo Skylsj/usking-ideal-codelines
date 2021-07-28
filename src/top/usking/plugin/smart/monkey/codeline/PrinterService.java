@@ -43,8 +43,9 @@ public class PrinterService implements IPrinterService {
         int commentLines = 0;
         int blankLines = 0;
         List<String> allFiles = fileResource.getResources(paths);
-        try {
-            for (String filePath : allFiles) {
+
+        for (String filePath : allFiles) {
+            try {
                 List<String> list = Files.readAllLines(Paths.get(filePath));
                 Context processor = processorFactory.getProcessor(filePath);
                 if (processor != null) {
@@ -56,10 +57,12 @@ public class PrinterService implements IPrinterService {
                         list1.add(model);
                     }
                 }
+            } catch (IOException e) {
+                System.err.println(filePath+"IOException:"+e.getMessage());
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
 
         if (sourceCodeLines > 0) {
             printer.print(Arrays.asList(new MonkeyModel("TOTAL:", sourceCodeLines, commentLines, blankLines)));
