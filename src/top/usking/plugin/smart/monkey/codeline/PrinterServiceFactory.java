@@ -4,18 +4,28 @@ import top.usking.plugin.smart.monkey.codeline.print.support.DefaultPrinter;
 import top.usking.plugin.smart.monkey.codeline.process.*;
 import top.usking.plugin.smart.monkey.codeline.resource.FileSource;
 
+/**
+ * 工厂,负责组装打印服务.
+ */
 public class PrinterServiceFactory {
 
-    private static ProcessorFactory processorFactory = new ProcessorFactory(
+    /* 定义工厂 */
+    private static ProcessorFactory PROCESSOR_FACTORY = new ProcessorFactory(
             new JavaProcessor(),
             new XmlProcessor(),
             new PropertiesProcessor(),
             new JsonProcessor(),
             new YmlProcessor()
     );
-    private static IPrinterService printerService = new PrinterService(new DefaultPrinter(), processorFactory, new FileSource());
+    /* 定义实现了IPrinterService接口的一个服务 */
+    private static IPrinterService PRINTER_SERVICE = new PrinterService(new DefaultPrinter(), PROCESSOR_FACTORY, new FileSource());
 
+    /**
+     * 获取打印服务.
+     *
+     * @return 返回打印服务.
+     */
     public static IPrinterService getPrinterService() {
-        return printerService;
+        return PRINTER_SERVICE;
     }
 }
