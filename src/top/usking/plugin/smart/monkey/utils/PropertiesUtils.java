@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * 配置文件工具类.
+ */
 public abstract class PropertiesUtils {
 
     public static String[] getPaths(String pathContent) {

@@ -3,7 +3,7 @@ package top.usking.plugin.smart.monkey.codeline;
 import top.usking.plugin.smart.monkey.codeline.print.Printer;
 import top.usking.plugin.smart.monkey.codeline.process.Context;
 import top.usking.plugin.smart.monkey.codeline.process.ProcessorFactory;
-import top.usking.plugin.smart.monkey.codeline.resource.FileResource;
+import top.usking.plugin.smart.monkey.codeline.resource.Resource;
 import top.usking.plugin.smart.monkey.data.MonkeyModel;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class PrinterService implements IPrinterService {
     private final Printer printer;
-    private final FileResource fileResource;
+    private final Resource resource;
     private final ProcessorFactory processorFactory;
 
     /**
@@ -28,11 +28,11 @@ public class PrinterService implements IPrinterService {
      *
      * @param printer
      * @param processorFactory
-     * @param fileResource
+     * @param resource
      */
-    public PrinterService(Printer printer, ProcessorFactory processorFactory, FileResource fileResource) {
+    public PrinterService(Printer printer, ProcessorFactory processorFactory, Resource resource) {
         this.printer = printer;
-        this.fileResource = fileResource;
+        this.resource = resource;
         this.processorFactory = processorFactory;
     }
 
@@ -42,7 +42,7 @@ public class PrinterService implements IPrinterService {
         int sourceCodeLines = 0;
         int commentLines = 0;
         int blankLines = 0;
-        List<String> allFiles = fileResource.getResources(paths);
+        List<String> allFiles = resource.getResources(paths);
 
         for (String filePath : allFiles) {
             try {

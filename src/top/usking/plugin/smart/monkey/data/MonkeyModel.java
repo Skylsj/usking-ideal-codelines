@@ -1,10 +1,18 @@
 package top.usking.plugin.smart.monkey.data;
 
+/**
+ * 统计内容对象类.
+ */
 public class MonkeyModel {
+    //文件名称
     private String name;
+    //总行数
     private int total;
+    //代码行数
     private int code;
+    //注释行数
     private int comment;
+    //空格行数
     private int blank;
 
     public MonkeyModel(String name, int code, int comment, int blank) {

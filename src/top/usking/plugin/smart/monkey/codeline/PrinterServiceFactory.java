@@ -1,7 +1,12 @@
 package top.usking.plugin.smart.monkey.codeline;
 
 import top.usking.plugin.smart.monkey.codeline.print.support.DefaultPrinter;
-import top.usking.plugin.smart.monkey.codeline.process.*;
+import top.usking.plugin.smart.monkey.codeline.process.JavaProcessor;
+import top.usking.plugin.smart.monkey.codeline.process.JsonProcessor;
+import top.usking.plugin.smart.monkey.codeline.process.ProcessorFactory;
+import top.usking.plugin.smart.monkey.codeline.process.PropertiesProcessor;
+import top.usking.plugin.smart.monkey.codeline.process.XmlProcessor;
+import top.usking.plugin.smart.monkey.codeline.process.YmlProcessor;
 import top.usking.plugin.smart.monkey.codeline.resource.FileSource;
 
 /**
