@@ -10,7 +10,6 @@ import top.usking.plugin.smart.monkey.utils.PropertiesUtils;
 import javax.swing.*;
 import java.util.Objects;
 
-
 public class MonkeyWindows {
 
     private final IPrinterService printerService;
@@ -46,10 +45,17 @@ public class MonkeyWindows {
                 int code = item.getCode();
                 int comment = item.getComment();
                 int blank = item.getBlank();
-                Object[] COLUMN_NAME = {name, total, code, comment, blank, (code * 100 / total),
-                        (comment * 100 / total), (blank * 100 / total)};
+                String codePercent = String.format("%.2f%%", code * 100d / total);
+                String commentPercent = String.format("%.2f%%", comment * 100d / total);
+                String blankPercent = String.format("%.2f%%", blank * 100d / total);
+                Object[] COLUMN_NAME = {name, total, code, comment, blank,
+                        "0.00%".equals(codePercent) ? "0" : codePercent,
+                        "0.00%".equals(commentPercent) ? "0" : commentPercent,
+                        "0.00%".equals(blankPercent) ? "0" : blankPercent
+                };
                 MonkeyDataCenter.getTableModel().addRow(COLUMN_NAME);
             });
+
         });
         btnClean.addActionListener(e -> {
             MonkeyDataCenter.reset();
