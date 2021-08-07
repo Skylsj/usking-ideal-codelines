@@ -6,18 +6,22 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * 配置文件工具类.
  */
 public abstract class PropertiesUtils {
 
-    public static String[] getPaths(String pathContent) {
-        return pathContent.split(",");
+    public static String[] getPaths(String basePath, String pathContent) {
+        if (Objects.isNull(pathContent)) {
+            return new String[]{basePath};
+        }
+        String[] split = pathContent.split(",");
+        for (int i = 0; i < split.length; i++) {
+            split[i] = basePath + split[i];
+        }
+        return split;
     }
 
     public static String getPropertyValue(String path, String key) {
