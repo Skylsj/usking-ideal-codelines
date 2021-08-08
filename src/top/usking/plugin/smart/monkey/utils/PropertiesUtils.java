@@ -3,9 +3,7 @@ package top.usking.plugin.smart.monkey.utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -24,9 +22,9 @@ public abstract class PropertiesUtils {
         return split;
     }
 
-    public static String getPropertyValue(String path, String key) {
+    public static String getPropertyValue(String text, String key) {
         try {
-            FileInputStream in = new FileInputStream(path);
+            InputStream in =new ByteArrayInputStream(text.getBytes("UTF-8"));
             Properties prop = new Properties();
             prop.load(in);
             return prop.getProperty(key);
@@ -35,7 +33,7 @@ public abstract class PropertiesUtils {
         }
         return null;
     }
-
+    
     public static List<String> getAllFiles(String... paths) {
         List<String> collect = new ArrayList<>();
         for (String path : paths) {
@@ -44,18 +42,13 @@ public abstract class PropertiesUtils {
                 if (file.isDirectory()) {
                     Collection<File> listFiles = FileUtils.listFiles(new File(path), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
 
-                    try {
-                        for (File f : listFiles) {
-                            if (f.isFile()) {
-                                collect.add(f.getCanonicalPath());
-                            }
+                    for (File f : listFiles) {
+                        if (f.isFile()) {
+                            collect.add(f.getPath());
                         }
-                        return collect;
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 } else if (file.isFile()) {
-                    collect.add(path);
+                    collect.add(file.getPath());
                 }
 
             }

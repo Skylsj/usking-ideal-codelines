@@ -1,9 +1,22 @@
 package top.usking.plugin.smart.monkey.winform;
 
+import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.fileTypes.PlainTextFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiJavaFile;
+import com.intellij.psi.impl.file.PsiDirectoryFactory;
+import com.intellij.psi.search.FilenameIndex;
+import com.intellij.psi.search.GlobalSearchScope;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import top.usking.plugin.smart.monkey.codeline.IPrinterService;
 import top.usking.plugin.smart.monkey.codeline.PrinterServiceFactory;
 import top.usking.plugin.smart.monkey.data.MonkeyDataCenter;
@@ -39,7 +52,15 @@ public class MonkeyWindows {
         btnAdd.addActionListener(e -> {
             MonkeyDataCenter.reset();
             MonkeyDataCenter.getTableModel().setNumRows(0);
-            String allPath = PropertiesUtils.getPropertyValue(project.getBasePath() + "/code-lines.properties", "paths");
+            @NotNull PsiFile[] filesByName = FilenameIndex.getFilesByName(project, "code-lines.properties", GlobalSearchScope.projectScope(project));
+
+            String allPath;
+            if(filesByName.length<1){
+                allPath =null;
+           }else {
+                String text = filesByName[0].getText();
+                allPath = PropertiesUtils.getPropertyValue(text, "paths");
+            }
             if (Objects.isNull(allPath)) {
                 String title = "创建文件";
                 String msg = "您好,代码统计时,需要在当前项目根目前下生成一个code-lines.properties\r\n请去里面做一下配置.默认是统计项目内的所有文件\r\n目前只支持java,properties,xml,yml这四种文件";
@@ -75,39 +96,19 @@ public class MonkeyWindows {
 
     private void createConfig(Project project){
         WriteCommandAction.runWriteCommandAction(project, () -> {
-
             StringBuilder content = new StringBuilder();
             content.append("# 1.paths=/src/main,/src/test");
-            content.append("\r\n");
+            content.append("\n");
             content.append("# 2.paths=/src/main/java/com/Hello.java,/code-lines.properties");
-            content.append("\r\n");
+            content.append("\n");
             content.append("# 3.paths=/src/main,/code-lines.properties");
-            content.append("\r\n");
+            content.append("\n");
             content.append("# 4.default is project base path");
-            content.append("\r\n");
+            content.append("\n");
             content.append("paths=");
-            writeToFile(content.toString(), project.getBasePath(), "code-lines.properties");
+            PsiFile javaFile =  PsiFileFactory.getInstance(project).createFileFromText("code-lines.properties", PlainTextFileType.INSTANCE, content.toString());
+            PsiDirectory directory = PsiDirectoryFactory.getInstance(project).createDirectory(project.getBaseDir());
+            directory.add(javaFile);
         });
-    }
-    private void writeToFile(String content, String classPath, String className) {
-        try {
-            File floder = new File(classPath);
-            if (!floder.exists()) {
-                floder.mkdirs();
-            }
-
-            File file = new File(classPath + "/" + className);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(content);
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }
