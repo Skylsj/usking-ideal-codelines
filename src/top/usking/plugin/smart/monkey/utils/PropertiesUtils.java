@@ -33,7 +33,7 @@ public abstract class PropertiesUtils {
         }
         return null;
     }
-    
+
     public static List<String> getAllFiles(String... paths) {
         List<String> collect = new ArrayList<>();
         for (String path : paths) {
